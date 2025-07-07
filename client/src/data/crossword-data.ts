@@ -1,8 +1,8 @@
 import { CrosswordGrid } from '../types/game';
 
 export const LEVEL_1_DATA: CrosswordGrid = {
-  cells: Array(10).fill(null).map(() => 
-    Array(10).fill(null).map(() => ({
+  cells: Array(12).fill(null).map(() => 
+    Array(12).fill(null).map(() => ({
       value: '',
       revealed: false,
       isBlocked: true,
@@ -11,7 +11,7 @@ export const LEVEL_1_DATA: CrosswordGrid = {
     }))
   ),
   clues: [
-    // Across clues
+    // Across clues - separate rows, no overlaps
     {
       id: 1,
       number: 1,
@@ -29,8 +29,8 @@ export const LEVEL_1_DATA: CrosswordGrid = {
       text: "German engineering excellence (3 letters)",
       answer: "BMW",
       direction: 'across',
-      startRow: 3,
-      startCol: 2,
+      startRow: 2,
+      startCol: 6,
       answered: false,
       hintsUsed: 0,
     },
@@ -40,8 +40,8 @@ export const LEVEL_1_DATA: CrosswordGrid = {
       text: "German luxury brand with four rings (4 letters)",
       answer: "AUDI",
       direction: 'across',
-      startRow: 5,
-      startCol: 3,
+      startRow: 4,
+      startCol: 1,
       answered: false,
       hintsUsed: 0,
     },
@@ -51,8 +51,8 @@ export const LEVEL_1_DATA: CrosswordGrid = {
       text: "Japanese performance brand (5 letters)",
       answer: "HONDA",
       direction: 'across',
-      startRow: 7,
-      startCol: 1,
+      startRow: 5,
+      startCol: 6,
       answered: false,
       hintsUsed: 0,
     },
@@ -62,64 +62,64 @@ export const LEVEL_1_DATA: CrosswordGrid = {
       text: "Korean car manufacturer (7 letters)",
       answer: "HYUNDAI",
       direction: 'across',
-      startRow: 9,
+      startRow: 7,
       startCol: 1,
       answered: false,
       hintsUsed: 0,
     },
-    // Down clues
+    // Down clues - separate columns, no overlaps
     {
       id: 6,
-      number: 1,
+      number: 6,
       text: "Italian sports car with prancing horse (7 letters)",
       answer: "FERRARI",
       direction: 'down',
       startRow: 1,
-      startCol: 1,
+      startCol: 9,
       answered: false,
       hintsUsed: 0,
     },
     {
       id: 7,
-      number: 6,
+      number: 7,
       text: "Swedish safety-focused brand (5 letters)",
       answer: "VOLVO",
       direction: 'down',
-      startRow: 3,
-      startCol: 4,
+      startRow: 2,
+      startCol: 2,
       answered: false,
       hintsUsed: 0,
     },
     {
       id: 8,
-      number: 7,
+      number: 8,
       text: "British luxury brand (7 letters)",
       answer: "BENTLEY",
       direction: 'down',
-      startRow: 1,
-      startCol: 4,
+      startRow: 4,
+      startCol: 7,
       answered: false,
       hintsUsed: 0,
     },
     {
       id: 9,
-      number: 8,
+      number: 9,
       text: "Japanese luxury brand (6 letters)",
       answer: "TOYOTA",
       direction: 'down',
-      startRow: 4,
+      startRow: 1,
       startCol: 6,
       answered: false,
       hintsUsed: 0,
     },
     {
       id: 10,
-      number: 9,
+      number: 10,
       text: "German luxury car with star (8 letters)",
       answer: "MERCEDES",
       direction: 'down',
-      startRow: 2,
-      startCol: 3,
+      startRow: 3,
+      startCol: 4,
       answered: false,
       hintsUsed: 0,
     }
