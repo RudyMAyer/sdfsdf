@@ -2,6 +2,17 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertGameProgressSchema, insertGameStatsSchema } from "@shared/schema";
+import nodemailer from "nodemailer";
+
+// Endpoint untuk menerima skor user dan mengirim email ke Gmail
+// Pastikan untuk mengisi user dan pass dengan App Password Gmail di bawah ini
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'yourgmail@gmail.com', // Ganti dengan email pengirim
+    pass: 'your-app-password',   // Ganti dengan App Password Gmail
+  },
+});
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get game stats for a user
@@ -87,9 +98,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!progress) {
         return res.status(404).json({ message: "Game progress not found" });
       }
-      res.json(progress);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Kirim skor user ke email buypristine@gmail.com
+  app.post("/api/send-score", async (req, res) => {
+    try {
+      const { username, level, score, timestamp } = req.body;
+      if (!username || !level || !score) {
+        return res.status(400).json({ message: "Missing data" });
+      }
+      const mailOptions = {
+        from: 'yourgmail@gmail.com', // Ganti dengan email pengirim
+        to: 'buypristine@gmail.com',
+        subject: `Skor User: ${username} - Level ${level}`,
+        text: `User: ${username}\nLevel: ${level}\nScore: ${score}\nWaktu: ${timestamp || new Date().toISOString()}`,
+      };
+      await transporter.sendMail(mailOptions);
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to send email" });
     }
   });
 

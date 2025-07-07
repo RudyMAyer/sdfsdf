@@ -63,11 +63,16 @@ export function useGameState(initialLevel: number = 1) {
           const col = clue.direction === 'across' ? clue.startCol + i : clue.startCol;
           
           if (row < newGridState.cells.length && col < newGridState.cells[0].length) {
-            newGridState.cells[row][col] = {
-              ...newGridState.cells[row][col],
-              value: clue.answer[i],
-              revealed: true
-            };
+            const currentCell = newGridState.cells[row][col];
+            const newChar = clue.answer[i];
+            if (!currentCell.value || currentCell.value === newChar) {
+              newGridState.cells[row][col] = {
+                ...currentCell,
+                value: newChar,
+                revealed: true
+              };
+            }
+            // Jika sudah ada huruf berbeda, biarkan saja (tidak ditimpa)
           }
         }
         
@@ -132,7 +137,7 @@ export function useGameState(initialLevel: number = 1) {
     return {
       ...state,
       gridState: newGridState,
-      score: Math.max(0, state.score - 5),
+      score: state.score - 50, // Biaya hint -50, bisa negatif (hutang)
       hintsUsed: state.hintsUsed + 1,
       hintsRemaining: state.hintsRemaining - 1
     };

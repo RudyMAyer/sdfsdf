@@ -61,6 +61,15 @@ export function Homepage({ onNavigateToLevelSelect }: HomepageProps) {
           >
             How to Play
           </Button>
+
+          {/* Tombol Reset Data */}
+          <Button
+            onClick={() => { localStorage.clear(); window.location.reload(); }}
+            variant="destructive"
+            className="w-full font-semibold py-3 px-8 shadow-md"
+          >
+            Reset Data
+          </Button>
         </div>
       </div>
 
