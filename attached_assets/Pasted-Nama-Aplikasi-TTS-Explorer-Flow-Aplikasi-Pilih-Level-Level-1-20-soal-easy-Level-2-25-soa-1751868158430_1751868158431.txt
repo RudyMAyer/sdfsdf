@@ -1,0 +1,77 @@
+Nama Aplikasi TTS Explorer
+
+Flow Aplikasi 
+
+*Pilih Level:*
+
+Level 1: 20 soal (easy)
+
+Level 2: 25 soal (medium)
+
+Level 3: 30 Soal (Hard)
+
+Level 4: 40 soal (very hard)
+
+*_Gameplay_*
+
+Apabila jawaban benar ketika diinput maka mendapatkan point dan dapat melanjutkan ke soal selanjutnya. Apabila Jawaban Salah, maka Soal TTS yang salah akan mendapatkan 1 huruf acak sebagai Clue/hint yang dapat membantu player menjawab soal dengan Pengurangan point Sebagai hukuman. Apabila tak ingin menjawab dapat keluar dengan menggunakan tombol keluar [X] lalu dapat mencoba soal yang lain.
+
+*Selesai level*
+
+* _Hitung total Point_
+
+* _Unlock level selanjutnya_
+
+* _Opsi replay level atau ulang level_
+
+*Flow menu:*
+
+ homepage, List level, Play time, menu refresh.
+
+2. *Fitur Aplikasi :*
+
+_*Sistem bantuan otomatis*_
+
+ *Apabila salah*
+
+buka 1 huruf pada jawaban Secara acak sebagai clue. Namun dikurangi Point sebanyak 5 Point sebagai hukuman
+
+*Hint system:*
+
+Player akan mendapatkan 3 hint huruf untuk membantu player dalam menyelesaikan soal. 
+
+Ada hint berupa informasi sebagai soal.
+
+*Mekanisme* Point
+
+• jawaban benar = +100 Point
+
+• Selesai level tanpa salah atau clue = +50 point
+
+• Apabila salah maka Point jawaban akan dikurangi sebanyak 5 Point.
+
+*UI Menu*
+
+Apabila level telah selesai, maka level pada daftar level maka akan berwarna hijau dan akan bertandakan "selesai"
+
+Apabila level belum selesai maka akan berwarna merah,
+
+Apabila level masih terkunci maka akan berwarna emas dengan label gembok / masih terkunci.
+ 
+*sistem Unlock level*
+
+Jika ingin membuka level, diperlukan Poin minimum untuk membuka level selanjutnya melalui Poin minimum di level sebelumnya.
+
+level 2
+
+= memerlukan minumum skor Point level 1 Sebanyak 1800 Point skor.
+
+Level 3
+
+= memerlukan minimum skor point level 2 Sebanyak 2250 point skor
+
+Level 4
+
+= memerlukan minimum skor point level 3 Sebanyak 3650 Point skor.
+*NOTE*
+buat grid setiap kolom tts serapih mungkin, buat dengan ukuran 30px, lalu untuk kolom jawaban buat perkolomnya dengan ukuran 2,5px. Dan buat kolom dapat terhubung atau menyambung dengan kolom lainnya dengan catatan hanya pada satu huruf yang sama di kedua kolom jawabanan. apabila salah satu soal sudah terjawab, maka jawaban akan tampil pada kolom menyesuaikan jumlah kolom dan huruf pada jawaban, apabila soal lain yang tehubung belum terjawab maka kolom huruf yang sama yang sudah terjawab pada soal lain tetap tampil.
