@@ -219,7 +219,11 @@ export function Gameplay({ level, onNavigateToLevelSelect }: GameplayProps) {
                   </Button>
                   <Button 
                     onClick={handleUseHint}
-                    disabled={gameState.hintsRemaining <= 0 || !gameState.selectedClue}
+                    disabled={
+                      gameState.hintsRemaining <= 0 || 
+                      !gameState.selectedClue ||
+                      (gameState.selectedClue && gameState.gridState.clues.find(c => c.id === gameState.selectedClue)?.hintsUsed >= 2)
+                    }
                     variant="outline"
                     className="text-amber-600 border-amber-600 hover:bg-amber-50"
                   >
@@ -263,6 +267,11 @@ export function Gameplay({ level, onNavigateToLevelSelect }: GameplayProps) {
                               {clue.number}.
                             </span>
                             <span className="text-sm text-gray-700 ml-1">{clue.text}</span>
+                            {clue.hintsUsed > 0 && (
+                              <span className="text-xs text-amber-600 ml-2">
+                                ({clue.hintsUsed}/2 hints)
+                              </span>
+                            )}
                           </div>
                           {clue.answered && (
                             <span className="text-xs text-green-600 font-medium">✓</span>
@@ -299,6 +308,11 @@ export function Gameplay({ level, onNavigateToLevelSelect }: GameplayProps) {
                               {clue.number}.
                             </span>
                             <span className="text-sm text-gray-700 ml-1">{clue.text}</span>
+                            {clue.hintsUsed > 0 && (
+                              <span className="text-xs text-amber-600 ml-2">
+                                ({clue.hintsUsed}/2 hints)
+                              </span>
+                            )}
                           </div>
                           {clue.answered && (
                             <span className="text-xs text-green-600 font-medium">✓</span>

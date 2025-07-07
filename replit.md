@@ -115,6 +115,7 @@ TTS Explorer is a progressive crossword puzzle game built with a modern full-sta
 ## Changelog
 
 - July 07, 2025. Initial setup
+- July 07, 2025. Updated Level 1 to car brand questions (10 total), implemented 2-hint limit per clue
 
 ## User Preferences
 

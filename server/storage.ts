@@ -79,7 +79,16 @@ export class MemStorage implements IStorage {
 
   async createGameProgress(insertProgress: InsertGameProgress): Promise<GameProgress> {
     const id = this.currentProgressId++;
-    const progress: GameProgress = { ...insertProgress, id };
+    const progress: GameProgress = { 
+      ...insertProgress, 
+      id,
+      userId: insertProgress.userId || null,
+      score: insertProgress.score || 0,
+      completed: insertProgress.completed || false,
+      hintsUsed: insertProgress.hintsUsed || 0,
+      answeredQuestions: insertProgress.answeredQuestions || 0,
+      gridState: insertProgress.gridState || null
+    };
     this.gameProgress.set(id, progress);
     return progress;
   }
@@ -101,7 +110,14 @@ export class MemStorage implements IStorage {
 
   async createGameStats(insertStats: InsertGameStats): Promise<GameStats> {
     const id = this.currentStatsId++;
-    const stats: GameStats = { ...insertStats, id };
+    const stats: GameStats = { 
+      ...insertStats, 
+      id,
+      userId: insertStats.userId || null,
+      totalScore: insertStats.totalScore || 0,
+      levelsCompleted: insertStats.levelsCompleted || 0,
+      hintsRemaining: insertStats.hintsRemaining || 3
+    };
     this.gameStats.set(id, stats);
     return stats;
   }

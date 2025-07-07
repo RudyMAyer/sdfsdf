@@ -4,6 +4,7 @@ export interface CrosswordCell {
   number?: number;
   isBlocked: boolean;
   belongsToClues: number[];
+  hintsUsed?: number; // Track how many hints used for this cell
 }
 
 export interface CrosswordClue {
@@ -15,6 +16,7 @@ export interface CrosswordClue {
   startRow: number;
   startCol: number;
   answered: boolean;
+  hintsUsed: number; // Track hints used for this clue (max 2)
 }
 
 export interface CrosswordGrid {
@@ -47,8 +49,8 @@ export const LEVEL_CONFIGS: LevelConfig[] = [
   {
     level: 1,
     name: "Level 1",
-    description: "20 Questions • Easy",
-    totalQuestions: 20,
+    description: "10 Questions • Easy",
+    totalQuestions: 10,
     difficulty: 'easy',
     unlockRequirement: 0,
   },

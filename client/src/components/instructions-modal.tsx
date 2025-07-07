@@ -69,6 +69,7 @@ export function InstructionsModal({ isOpen, onClose }: InstructionsModalProps) {
             <h4 className="text-lg font-semibold text-gray-800 mb-3">💡 Hint System</h4>
             <ul className="space-y-2 text-gray-700 ml-4">
               <li>• You get 3 hints per game session</li>
+              <li>• Each clue can only receive a maximum of 2 hints</li>
               <li>• Wrong answers automatically reveal a random letter</li>
               <li>• Manual hints cost 5 points but don't count as wrong answers</li>
               <li>• Use hints strategically to maintain your score</li>
@@ -81,7 +82,7 @@ export function InstructionsModal({ isOpen, onClose }: InstructionsModalProps) {
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <span className="font-medium">Level 1:</span> 20 Questions (Easy)
+                  <span className="font-medium">Level 1:</span> 10 Questions (Easy)
                 </div>
                 <span className="text-sm text-gray-600">Always Available</span>
               </div>

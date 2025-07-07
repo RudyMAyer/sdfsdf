@@ -92,7 +92,7 @@ export function useGameState(initialLevel: number = 1) {
     if (state.hintsRemaining <= 0) return state;
 
     const clue = targetClue || state.gridState.clues.find(c => c.id === state.selectedClue);
-    if (!clue || clue.answered) return state;
+    if (!clue || clue.answered || clue.hintsUsed >= 2) return state;
 
     // Find unrevealed positions in the answer
     const unrevealedPositions: number[] = [];
@@ -120,8 +120,14 @@ export function useGameState(initialLevel: number = 1) {
     newGridState.cells[row][col] = {
       ...newGridState.cells[row][col],
       value: clue.answer[positionToReveal],
-      revealed: true
+      revealed: true,
+      hintsUsed: (newGridState.cells[row][col].hintsUsed || 0) + 1
     };
+
+    // Update clue hint count
+    newGridState.clues = newGridState.clues.map(c => 
+      c.id === clue.id ? { ...c, hintsUsed: c.hintsUsed + 1 } : c
+    );
 
     return {
       ...state,
