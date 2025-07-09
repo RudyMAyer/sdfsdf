@@ -1,7 +1,7 @@
 export interface CrosswordCell {
   value: string;
   revealed: boolean;
-  number?: number;
+  number?: number | string;
   isBlocked: boolean;
   belongsToClues: number[];
   hintsUsed?: number; // Track how many hints used for this cell
@@ -17,6 +17,7 @@ export interface CrosswordClue {
   startCol: number;
   answered: boolean;
   hintsUsed: number; // Track hints used for this clue (max 2)
+  hidden?: boolean; // Jika true, clue disembunyikan
 }
 
 export interface CrosswordGrid {
@@ -49,16 +50,16 @@ export const LEVEL_CONFIGS: LevelConfig[] = [
   {
     level: 1,
     name: "Level 1",
-    description: "10 Questions • Easy",
-    totalQuestions: 10,
+    description: "16 Questions • Easy",
+    totalQuestions: 16,
     difficulty: 'easy',
     unlockRequirement: 0,
   },
   {
     level: 2,
     name: "Level 2", 
-    description: "25 Questions • Medium",
-    totalQuestions: 25,
+    description: "23 Questions • Medium",
+    totalQuestions: 23,
     difficulty: 'medium',
     unlockRequirement: 1800,
   },
@@ -69,13 +70,5 @@ export const LEVEL_CONFIGS: LevelConfig[] = [
     totalQuestions: 30,
     difficulty: 'hard',
     unlockRequirement: 2250,
-  },
-  {
-    level: 4,
-    name: "Level 4",
-    description: "40 Questions • Very Hard",
-    totalQuestions: 40,
-    difficulty: 'very hard',
-    unlockRequirement: 3650,
   },
 ];

@@ -2,18 +2,55 @@ import { useState, useCallback } from 'react';
 import { GameState, CrosswordGrid, CrosswordClue } from '../types/game';
 import { LEVEL_DATA } from '../data/crossword-data';
 
+function revealRandomLetters(grid: CrosswordGrid): CrosswordGrid {
+  const newGrid = { ...grid, cells: grid.cells.map(row => row.map(cell => ({ ...cell })))};
+  for (const clue of newGrid.clues) {
+    // Aturan baru: <7 huruf = 1 clue, 7-10 huruf = 2 clue, >10 huruf = 3 clue
+    let revealCount = 1;
+    if (clue.answer.length >= 7 && clue.answer.length <= 10) {
+      revealCount = 2;
+    } else if (clue.answer.length > 10) {
+      revealCount = 3;
+    }
+    const positions = Array.from({ length: clue.answer.length }, (_, i) => i);
+    // Acak urutan posisi
+    for (let i = positions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [positions[i], positions[j]] = [positions[j], positions[i]];
+    }
+    // Ambil posisi yang akan diungkap
+    const revealPositions = positions.slice(0, revealCount);
+    for (const i of revealPositions) {
+      const row = clue.direction === 'across' ? clue.startRow : clue.startRow + i;
+      const col = clue.direction === 'across' ? clue.startCol + i : clue.startCol;
+      if (row < newGrid.cells.length && col < newGrid.cells[0].length) {
+        newGrid.cells[row][col] = {
+          ...newGrid.cells[row][col],
+          value: clue.answer[i],
+          revealed: true
+        };
+      }
+    }
+  }
+  return newGrid;
+}
+
 export function useGameState(initialLevel: number = 1) {
-  const [gameState, setGameState] = useState<GameState>(() => ({
-    currentLevel: initialLevel,
-    score: 0,
-    hintsUsed: 0,
-    hintsRemaining: 3,
-    completedQuestions: 0,
-    selectedCell: null,
-    selectedClue: null,
-    currentInput: '',
-    gridState: LEVEL_DATA[initialLevel],
-  }));
+  const [gameState, setGameState] = useState<GameState>(() => {
+    const baseGrid = LEVEL_DATA[initialLevel];
+    const gridState = revealRandomLetters(baseGrid);
+    return {
+      currentLevel: initialLevel,
+      score: 0,
+      hintsUsed: 0,
+      hintsRemaining: 3,
+      completedQuestions: 0,
+      selectedCell: null,
+      selectedClue: null,
+      currentInput: '',
+      gridState,
+    };
+  });
 
   const selectCell = useCallback((row: number, col: number) => {
     setGameState(prev => ({
@@ -148,6 +185,8 @@ export function useGameState(initialLevel: number = 1) {
   }, [useHint]);
 
   const resetLevel = useCallback((level: number) => {
+    const baseGrid = LEVEL_DATA[level];
+    const gridState = revealRandomLetters(baseGrid);
     setGameState({
       currentLevel: level,
       score: 0,
@@ -157,7 +196,7 @@ export function useGameState(initialLevel: number = 1) {
       selectedCell: null,
       selectedClue: null,
       currentInput: '',
-      gridState: LEVEL_DATA[level],
+      gridState,
     });
   }, []);
 

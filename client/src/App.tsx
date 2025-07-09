@@ -31,29 +31,73 @@ function Login({ onLogin }: { onLogin: (username: string) => void }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-blue-700 via-white to-black transition-all duration-500 overflow-hidden relative">
+      <EmojiBackground />
+      <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-10 max-w-sm w-full border border-blue-100 relative transform transition-transform duration-200 hover:scale-105 hover:shadow-3xl z-10">
+        <div className="flex justify-center mb-4">
+          <span className="inline-block bg-blue-600 text-white rounded-full p-3 shadow-lg animate-bounce-slow">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+            </svg>
+          </span>
+        </div>
+        <h2 className="text-3xl font-extrabold mb-2 text-center text-blue-700 drop-shadow">Login</h2>
+        <p className="text-center text-gray-500 mb-6 text-sm">Masuk untuk melanjutkan ke TTS Explorer. Nama kamu akan tampil di papan skor!</p>
+        <form onSubmit={handleLogin} className="space-y-5">
           <input
             type="text"
             placeholder="Silahkan input namamu 'U' "
             value={username}
             onChange={e => setUsername(e.target.value)}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border-2 border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg shadow-sm hover:border-blue-500 bg-white/80 backdrop-blur placeholder-gray-400"
             autoFocus
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            className="w-full bg-gradient-to-r from-blue-700 via-blue-400 to-black hover:from-blue-800 hover:to-gray-900 text-white font-bold py-3 px-4 rounded-lg text-lg shadow-lg transition-all duration-200 tracking-wide"
           >
             Login
           </button>
         </form>
-        {log && <div className="mt-4 text-green-700 text-center">{log}</div>}
+        {log && <div className="mt-6 text-green-700 text-center font-semibold animate-fade-in-up">{log}</div>}
       </div>
     </div>
   );
+}
+
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const EMOJIS = [
+  "🚀", "🎉", "🧩", "🤖", "🌟", "🦄", "🎲", "🧠", "💡", "📚", "🎮", "🕹️", "✨", "🦉", "🧸", "🍀", "🌈", "🪐", "🦕", "🦋"
+];
+
+function EmojiBackground() {
+  // Generate 14 random emojis with random positions and sizes
+  const emojis = Array.from({ length: 14 }).map((_, i) => {
+    const emoji = EMOJIS[getRandomInt(0, EMOJIS.length - 1)];
+    const top = getRandomInt(5, 85); // percent
+    const left = getRandomInt(5, 85); // percent
+    const size = getRandomInt(28, 64); // px
+    const delay = getRandomInt(0, 20) / 10; // s
+    return (
+      <span
+        key={i}
+        style={{
+          top: `${top}%`,
+          left: `${left}%`,
+          fontSize: `${size}px`,
+          animationDelay: `${delay}s`,
+          zIndex: 1,
+        }}
+        className="pointer-events-none select-none animate-emoji-pop absolute opacity-80"
+      >
+        {emoji}
+      </span>
+    );
+  });
+  return <>{emojis}</>;
 }
 
 function Router() {
@@ -94,6 +138,7 @@ function Router() {
             <Gameplay 
               level={selectedLevel}
               onNavigateToLevelSelect={navigateToLevelSelect}
+              onNavigateToGameplay={navigateToGameplay}
             />
           )}
         </div>

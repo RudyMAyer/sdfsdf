@@ -55,6 +55,14 @@
   --radius: 0.5rem;
 }
 
+@keyframes emoji-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25) rotate(-6deg); }
+}
+.animate-emoji-pop {
+  animation: emoji-pop 2.4s infinite cubic-bezier(.68,-0.55,.27,1.55);
+}
+
 @layer base {
   * {
     @apply border-border;

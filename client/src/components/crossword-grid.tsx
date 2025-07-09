@@ -1,25 +1,31 @@
 import { cn } from "@/lib/utils";
 import { CrosswordGrid, CrosswordCell } from "../types/game";
+import { ReactNode } from 'react';
 
 interface CrosswordGridProps {
   gridState: CrosswordGrid;
   selectedCell: { row: number; col: number } | null;
   onCellClick: (row: number, col: number) => void;
   selectedClue?: number | null;
+  zoom?: number;
+  children?: ReactNode;
+  level?: number;
 }
 
-export function CrosswordGridComponent({ gridState, selectedCell, onCellClick, selectedClue }: CrosswordGridProps) {
+export function CrosswordGridComponent({ gridState, selectedCell, onCellClick, selectedClue, zoom = 1, children, level }: CrosswordGridProps) {
   const gridSize = gridState.cells.length;
-  
+  let title = 'Kota Kabupaten';
+  if (level === 1) title = 'Mobil brok';
+  if (level === 2) title = 'Kota apa kabupaten ya? ah keduanya!!!';
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
-      <h4 className="text-lg font-semibold text-gray-800 mb-4">Crossword Puzzle</h4>
-      
+      <h4 className="text-lg font-semibold text-gray-800 mb-4">{title}</h4>
+      {children}
       {/* Tambahkan scroll container */}
       <div style={{ overflow: 'auto', maxWidth: '100%', maxHeight: '600px' }}>
         <div 
           className="crossword-grid inline-grid bg-gray-100 p-4 rounded-lg"
-          style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)` }}
+          style={{ gridTemplateColumns: `repeat(${gridSize}, 1fr)`, transform: `scale(${zoom})`, transformOrigin: 'top left' }}
         >
           {gridState.cells.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
